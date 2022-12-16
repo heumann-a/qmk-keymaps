@@ -17,3 +17,7 @@ Update Repo and its submodules
 ```
 git pull --recurse-submodules=yes
 ```
+
+### ToDo
+
+- [ ] Add UserSpace Functionality to [compile.sh](compile.sh)
