@@ -19,7 +19,6 @@
 // `SPLIT_HAND_PIN` can currently be defined in `info.json`,
 // but can't yet be given a value
 #define SPLIT_HAND_PIN F5
-#define MASTER_LEFT
 
 // Force Update of Information for Second OLED
 #define SPLIT_LAYER_STATE_ENABLE
@@ -40,12 +39,9 @@
 #    define RGB_MATRIX_LED_COUNT RGBLED_NUM
 #    define RGB_MATRIX_SPLIT RGBLED_SPLIT
 #    define SPLIT_TRANSPORT_MIRROR
-#endif
-
-
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_EFFECT_BREATHING
 #    define RGB_MATRIX_KEYPRESSES
 #    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_SPLASH
+#    define ENABLE_RGB_MATRIX_BREATHING
+#    define ENABLE_RGB_MATRIX_MULTISPLASH
 #endif
+

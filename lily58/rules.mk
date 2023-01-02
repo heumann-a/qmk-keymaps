@@ -25,9 +25,8 @@ OLED_DRIVER = SSD1306
 
 # RGB Matrix is enabled at the revision level,
 # while we use the regular RGB underglow for testing
-RGBLIGHT_ENABLE = yes		# Enable WS2812 RGB underlight.
-RGB_MATRIX_ENABLE = no		# Enable keyboard backlight functionality
-# RGB_MATRIX_DRIVER = IS31FL3731
+RGBLIGHT_ENABLE = no		# Enable WS2812 RGB underlight.
+RGB_MATRIX_ENABLE = yes		# Enable keyboard backlight functionality
 
 # Keyboard specific defines
 NKRO_ENABLE = yes  

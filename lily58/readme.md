@@ -12,10 +12,4 @@ These correspond to the index used for custom encoder code: the left half uses i
 
 The number is followed by either a `+` or a `-`, depending on the direction turned.
 
-## LEDs
 
-Both underglow and per-key RGB should be fading between red and off.
-
-## OLEDs
-
-Both the primary and secondary side should be filled with characters.
