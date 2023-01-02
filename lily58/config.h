@@ -24,7 +24,7 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
 
 // Not yet available in `info.json`

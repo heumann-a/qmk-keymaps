@@ -235,7 +235,7 @@ bool oled_task_user(void) {
 
     if (is_keyboard_master()){
         enum layers current_active = IS_LAYER_ON(_RACING) ? _RACING : _QWERTZ;
-        current_active = IS_LAYER_ON(_CODE) ? _CODE : _QWERTZ;
+        current_active = IS_LAYER_ON(_CODE) ? _CODE : current_active;
 
         switch (current_active) {
             case _RACING:
