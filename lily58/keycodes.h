@@ -8,4 +8,4 @@
 
 // Tap Codes
 #define SPLT(x) LT(x, KC_SPACE)
-
+#define BSPLT(x) LT(x, KC_BSPC)
