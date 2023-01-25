@@ -13,10 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-BOOTLOADER = atmel-dfu
-MCU = atmega32u4
-F_CPU = 16000000
+# New Liatris Setting
+# BOOTLOADER = rp2040 # currently not supported
+CONVERT_TO=promicro_rp2040
 
 ENCODER_ENABLE = no
 

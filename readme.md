@@ -58,4 +58,4 @@ If it's not executable, maybe file rights aren't correct. (chmod may help)
 
 - [ ] Add UserSpace Functionality to [compile.sh](compile.sh) script
 - [ ] Add More Arguments to [compile.sh](compile.sh) script
-- [ ] Fix RGB Backlight Functionality (cant be used with RGB Lighting)
+- [ ] Add OWN Code for Per Key LED and different underglow

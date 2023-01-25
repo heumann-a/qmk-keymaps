@@ -18,7 +18,6 @@ KEYMAP_LINK=""
 FILENAME=""
 ACTION=""
 
-
 #------------------------------------------
 # Argument Handling
 #------------------------------------------
@@ -36,6 +35,7 @@ then
     echo -e "No Keyboard specified! \nExiting..."
     exit 0
 fi
+
 
 echo "-------------------------"
 echo "> Compiling QMK Firmware"
@@ -73,7 +73,7 @@ case ${ACTION} in
         echo -e "> Compiling Firmware now...\n"
         # Use this feature on Windows
         # qmk compile -j 10  -kb $KEYBOARD -km $KEYMAP
-        make ${KEYBOARD}:${KEYMAP}
+        make ${KEYBOARD}:${KEYMAP} 
         ;;
     "flash" )
         make ${KEYBOARD}:${KEYMAP}:flash -o ${FILENAME}
@@ -101,4 +101,5 @@ echo -e "> Cleanup of symbolic link dir...\n"
 rm -r ${KEYMAP_LINK}
 
 echo -e "> Copy Output to Working Direction..."
-mv "${QMK_FIRMWARE_HOME}/${FILENAME}_${KEYMAP}.hex" "new_${KEYBOARD_FOLDERNAME}.hex"
+mv -iv -- "${QMK_FIRMWARE_HOME}/${FILENAME}_${KEYMAP}*.uf2" "new_${KEYBOARD_FOLDERNAME}.uf2"
+mv -iv -- "${QMK_FIRMWARE_HOME}/${FILENAME}_${KEYMAP}*.hex" "new_${KEYBOARD_FOLDERNAME}.hex"
