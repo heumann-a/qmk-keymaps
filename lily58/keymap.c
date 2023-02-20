@@ -4,7 +4,7 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- *
+ 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -16,11 +16,10 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#include "tapdances.h"
-#include "keycodes.h"
+#include "../user/tapdances.h"
+#include "../user/keycodes.h"
 
-/* Template
-    /* TEMPLATE
+/* TEMPLATE
      * ,-----------------------------------------------.                     ,------------------------------------------------.
      * |      |      |        |        |        |      |                    |      |        |        |         |      |      |
      * |------+------+--------+--------+--------+------|                    |------+--------+--------+---------+------+------|
@@ -70,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------| MEDIA |    |       |------+------+------+------+------+--------------|
      * | LCTRL|   Y  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M   |  ,  |   .  |   -  |    RCTCL     |
      * `-----------------------------------------/       /     \      \-------------------------------------------------'
-     *             |  GUI |TT(_RACE)|BSPLT(_CODE)| LALT /       \ RALT \  | SPLT(_RAISE) | ENTER |  DEL  |
+     *             |  GUI |TT(_RACE)|BSPLT(_EXT) | LALT /       \ RALT \  | SPLT(_RAISE) | ENTER |  DEL  |
      *             |      |         ||||||||||||||     /         \      \ |              |||||||||       |
      *             `----------------------------------'           '------''------------------------------'
      */
@@ -195,7 +194,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgb_matrix_sethsv (HSV_PURPLE); 
         rgb_matrix_mode_noeeprom(RGB_MATRIX_MULTISPLASH);
         break;
-    case _RAISE:
+    case _EXTENDED:
         rgb_matrix_sethsv (HSV_TEAL);
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR); 
         break;
@@ -203,7 +202,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgb_matrix_sethsv (HSV_CORAL);
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR); 
         break;
-    case _CODE:
+    case _RAISE:
         rgb_matrix_sethsv (HSV_RED);
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR); 
         break;
@@ -275,13 +274,13 @@ bool oled_task_user(void) {
 
     if (is_keyboard_master()){
         enum layers current_active = IS_LAYER_ON(_RACING) ? _RACING : _QWERTZ;
-        current_active = IS_LAYER_ON(_CODE) ? _CODE : current_active;
+        current_active = IS_LAYER_ON(_RAISE) ? _RAISE : current_active;
 
         switch (current_active) {
             case _RACING:
                 render_car();
                 break;
-            case _CODE:
+            case _RAISE:
                 render_code();
                 break;
             default:
@@ -306,8 +305,8 @@ bool oled_task_user(void) {
             case _RAISE:
                 oled_write("Raise", false);
                 break;
-            case _CODE:
-                oled_write("Code\n", false);
+            case _EXTENDED:
+                oled_write("Ext\n", false);
                 break;
             case _MEDIA:
                 oled_write("Media", false);

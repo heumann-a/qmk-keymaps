@@ -56,6 +56,5 @@ If it's not executable, maybe file rights aren't correct. (chmod may help)
 
 ### ToDo
 
-- [ ] Add UserSpace Functionality to [compile.sh](compile.sh) script
 - [ ] Add More Arguments to [compile.sh](compile.sh) script
 - [ ] Add OWN Code for Per Key LED and different underglow
