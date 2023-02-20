@@ -20,12 +20,12 @@ CONVERT_TO=promicro_rp2040
 ENCODER_ENABLE = no
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
 
 # RGB Matrix is enabled at the revision level,
 # while we use the regular RGB underglow for testing
 RGBLIGHT_ENABLE = no		# Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes		# Enable keyboard backlight functionality
+OCEAN_DREAM_ENABLE = no
 
 # Keyboard specific defines
 NKRO_ENABLE = yes  
@@ -37,5 +37,3 @@ MOUSEKEY_ENABLE = no        # Mouse keys
 CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-
-OCEAN_DREAM = yes

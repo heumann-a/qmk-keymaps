@@ -14,8 +14,19 @@ AUDIO_ENABLE = no           # Audio output on port C6
 MIDI_ENABLE = no            # MIDI controls
 
 
-ifdef OCEAN_DREAM
-  # Include my fancy rgb functions source here
-  SRC += ocean_dream.c
-  WPM_ENABLE = yes
+ifeq ($(strip $(OLED_ENABLE)), yes)
+
+    ifdef OCEAN_DREAM_ENABLE
+        ifeq ($(strip $(OCEAN_DREAM_ENABLE)), yes)
+            WPM_ENABLE = yes
+            SRC += ocean_dream.c
+            OPT_DEFS += -DOCEAN_DREAM_ENABLE
+        endif
+    endif
+    ifndef OCEAN_DREAM_ENABLE
+        SRC += ocean_dream.c
+        OPT_DEFS += -DOCEAN_DREAM_ENABLE
+    endif
+
 endif
+ 

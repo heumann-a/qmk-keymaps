@@ -53,8 +53,7 @@ case ${KEYBOARD_FOLDERNAME} in
         KEYBOARD="splitkb/aurora/lily58/rev1"
         KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
         FILENAME="splitkb_aurora_lily58_rev1"
-        ln -s "${WORKING_DIR}/lily58" ${KEYMAP_LINK}
-        mv ${KEYMAP} ${KEYMAP_LINK}
+        cp -r "${WORKING_DIR}/lily58" ${KEYMAP_LINK}
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
     *)
@@ -105,5 +104,6 @@ rm -r ${KEYMAP_LINK}
 rm -r "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
 
 echo -e "> Copy Output to Working Direction..."
-mv -iv -- "${QMK_FIRMWARE_HOME}/${FILENAME}_${KEYMAP}*.uf2" "new_${KEYBOARD_FOLDERNAME}.uf2"
-mv -iv -- "${QMK_FIRMWARE_HOME}/${FILENAME}_${KEYMAP}*.hex" "new_${KEYBOARD_FOLDERNAME}.hex"
+sleep 1
+mv -fv -- "${QMK_FIRMWARE_HOME}/*.uf2" ${WORKING_DIR}
+mv -fv -- "${QMK_FIRMWARE_HOME}/*.hex" ${WORKING_DIR}

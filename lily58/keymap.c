@@ -291,14 +291,7 @@ bool oled_task_user(void) {
         
         render_empty_line();
 
-    } else {
-
-        oled_write_P(PSTR("Layer"), false);
-        render_empty_line();
         switch (get_highest_layer(layer_state)) {
-            case _QWERTZ:
-                oled_write("Std\n", false);
-                break;
             case _RACING:
                 oled_write("Race\n", false);
                 break;
@@ -311,21 +304,38 @@ bool oled_task_user(void) {
             case _MEDIA:
                 oled_write("Media", false);
                 break;
+            case _QWERTZ:
             default:
-                // Or use the write_ln shortcut over adding '\n' to the end of your string
-                oled_write("Undef", false);
+                oled_write("Std\n", false);
+                break;
         }
 
-        render_empty_line();
         render_empty_line();
         // Host Keyboard LED Status
         led_t led_state = host_keyboard_led_state();
         oled_write_P(led_state.num_lock ? PSTR("NUM\n") : PSTR("    "), false);
         oled_write_P(led_state.caps_lock ? PSTR("CAP\n") : PSTR("    "), false);
         oled_write_P(led_state.scroll_lock ? PSTR("SCR\n") : PSTR("    "), false);
+
+    } else {
+        #ifdef OCEAN_DREAM_ENABLE
+        render_stars();
+        #endif
     }
 
     return false;
 }
 
 #endif
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_LCTL:
+        case KC_RCTL:
+#ifdef OCEAN_DREAM_ENABLE
+            is_calm = (record->event.pressed) ? true : false;
+#endif
+            break;
+    }
+    return true;
+}

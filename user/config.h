@@ -8,6 +8,4 @@
 #define NO_PRINT
 #endif // !NO_PRINT
 
-#define OCEAN_DREAM
-
 // END Disable Debug
