@@ -8,4 +8,6 @@
 #define NO_PRINT
 #endif // !NO_PRINT
 
+
+#define COMBO_COUNT 3
 // END Disable Debug
