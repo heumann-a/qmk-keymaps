@@ -16,10 +16,14 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#include "combos.h"
-#include ".keycodes.h"
-#include ".ocean_dream.h"
-#include "luna.h"
+#include "keyrecords/combos.h"
+#include "keyrecords/keycodes.h" 
+#ifdef OCEAN_DREAM_ENABLE
+    #include "animations/ocean_dream.h"
+#endif
+#ifdef LUNA_ENABLE
+    #include "animations/luna.h"
+#endif
 
 /* TEMPLATE
      * ,-----------------------------------------------.                     ,------------------------------------------------.
@@ -178,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
         KC_LSFT,    LGUI_T(KC_A),   LALT_T(KC_S),   LCTL_T(KC_D),   LSFT_T(KC_F),   KC_G,                                   KC_H,           RSFT_T(KC_J),   RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(DE_SS), KC_RSFT,
     // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
-        KC_LCTL,    DE_Y,           KC_X,           KC_C,           KC_V,           KC_B, LT(_MEDIA,KC_PGUP),   LT(KC_CYCLE,KC_PGDN), KC_N, KC_M,       DE_COMM, DE_DOT, DE_MINS, KC_RCTL,
+        KC_LCTL,    DE_Y,           KC_X,           KC_C,           KC_V,           KC_B, LT(_MEDIA,KC_PGUP),   LT(KC_BASE,KC_PGDN), KC_N, KC_M,       DE_COMM, DE_DOT, DE_MINS, KC_RCTL,
     // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
             KC_RCMD, TT(_RACING), KC_BSPC , KC_LALT,                                                                        KC_RALT, SPLT(_RAISE), KC_ENTER, KC_DEL
     )
@@ -188,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
-        case KC_CYCLE:
+        case KC_BASE:
             // Our logic will happen on presses, nothing is done on releases
             if (!record->event.pressed) { 
                 // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily

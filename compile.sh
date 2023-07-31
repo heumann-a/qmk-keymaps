@@ -5,10 +5,10 @@ export LANG=C.UTF-8
 # Constants
 #------------------------------------------
 # Put here your name
-KEYMAP="hex-a"
+KEYMAP="hexa"
 
 WORKING_DIR="$(pwd)"
-export QMK_FIRMWARE_HOME="${WORKING_DIR}/qmk_firmware"
+export QMK_FIRMWARE_HOME="${WORKING_DIR}/../qmk_firmware"
 QMK_USER="${WORKING_DIR}/user"
 
 
@@ -50,7 +50,7 @@ echo -e "-------------------------\n"
 case ${KEYBOARD_FOLDERNAME} in
     "lily58" )
         echo "> Keymap folder lily58 will be used!"
-        KEYBOARD="qmk_firmware/splitkb/aurora/lily58"
+        KEYBOARD="splitkb/aurora/lily58/rev1"
         KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
         FILENAME="splitkb_aurora_lily58_rev1"
         cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
@@ -63,20 +63,13 @@ case ${KEYBOARD_FOLDERNAME} in
 esac
 
 #------------------------------------------
-# Create User Symbolic Link
-#------------------------------------------
-# ln -s $QMK_USER $KEYMAP "$QMK_FIRMWARE_HOME/users/halex"
-
-#------------------------------------------
 # Do Actions
 #------------------------------------------ 
-pushd qmk_firmware
+pushd ${QMK_FIRMWARE_HOME}
 case ${ACTION} in
     "build" )
         echo -e "> Compiling Firmware now...\n"
-        # make "${KEYBOARD}:${KEYMAP}"
-        # qmk compile -kb ${KEYBOARD} -km default
-        make dz60:default
+        make "${KEYBOARD}:${KEYMAP}"
         ;;
     "flash" )
         make ${KEYBOARD}:${KEYMAP}:flash -o ${FILENAME}
@@ -106,5 +99,5 @@ rm -r "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
 
 echo -e "> Copy Output to Working Direction..."
 sleep 1
-mv -fv -- "${QMK_FIRMWARE_HOME}/*.uf2" ${WORKING_DIR}
-mv -fv -- "${QMK_FIRMWARE_HOME}/*.hex" ${WORKING_DIR}
+mv -fv -- ${QMK_FIRMWARE_HOME}/*.uf2 "."
+mv -fv -- ${QMK_FIRMWARE_HOME}/*.hex "."

@@ -15,32 +15,16 @@ A user repository with own keymaps for QMK Keyboards, followed guide:
 
 ## Setup own small QMK Repo
 
-1. Clone this repo with:
+1. Clone this and the oringal qmk repo into the same folder:
 
 ```shell
-git clone --recurse-submodules <url> [folder]
+git clone <url> [folder] 
+git clone https://github.com/qmk/qmk_firmware.git
 ```
-If you have forgotten to pull the submodules just execute `git submodule update--recursive`
 
 2. Remove/Replace folder [lily58](lily58) with your specific keymap/keyboard.
 3. Replace content of [user](user) folder with your own information.
 
-### Update Repo and its submodules
-
-Default the QMK Firmware won't be updated.
-
-```shell
-git submodule update --recursive
-git add .
-git commit -m "Update git submodules"
-git push
-```
-
-Afterwards you stil need to pull everything with
-
-```shell
-git pull --recurse-submodules
-```
 
 # Usage
 
@@ -49,12 +33,7 @@ Just specify which keymap **folder** you want to generate hex files for you.
 Output is currently the main folder of this repo, you are free to change that inside that script.
 
 ```
-./compile.sh lily58
+./compile.sh build lily58
 ```
 
 If it's not executable, maybe file rights aren't correct. (chmod may help)
-
-### ToDo
-
-- [ ] Add More Arguments to [compile.sh](compile.sh) script
-- [ ] Add OWN Code for Per Key LED and different underglow

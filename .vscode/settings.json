@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "luna.h": "c"
+        "luna.h": "c",
+        "combos.h": "c",
+        "keycodes.h": "c"
     }
 }
