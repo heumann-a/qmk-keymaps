@@ -50,10 +50,10 @@ echo -e "-------------------------\n"
 case ${KEYBOARD_FOLDERNAME} in
     "lily58" )
         echo "> Keymap folder lily58 will be used!"
-        KEYBOARD="splitkb/aurora/lily58/rev1"
+        KEYBOARD="qmk_firmware/splitkb/aurora/lily58"
         KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
         FILENAME="splitkb_aurora_lily58_rev1"
-        cp -r "${WORKING_DIR}/lily58" ${KEYMAP_LINK}
+        cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
     *)
@@ -69,12 +69,14 @@ esac
 
 #------------------------------------------
 # Do Actions
-#------------------------------------------
+#------------------------------------------ 
 pushd qmk_firmware
 case ${ACTION} in
     "build" )
         echo -e "> Compiling Firmware now...\n"
-        make ${KEYBOARD}:${KEYMAP} 
+        # make "${KEYBOARD}:${KEYMAP}"
+        # qmk compile -kb ${KEYBOARD} -km default
+        make dz60:default
         ;;
     "flash" )
         make ${KEYBOARD}:${KEYMAP}:flash -o ${FILENAME}
@@ -88,19 +90,18 @@ case ${ACTION} in
         rm -- "${QMK_FIRMWARE_HOME}"/*.hex 
         ;;
     *)
-        echo -e "No Keyboard specified! \nExiting..."
-        exit 0
+        echo -e "No Keyboard specified..."
+        exit 
         ;;
 esac
 popd
-
 
 
 #------------------------------------------
 #  Cleanup of Links and Files
 #------------------------------------------
 echo -e "> Cleanup of symbolic link dir...\n"
-rm -r ${KEYMAP_LINK}
+rm -r  "${KEYMAP_LINK}"
 rm -r "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
 
 echo -e "> Copy Output to Working Direction..."

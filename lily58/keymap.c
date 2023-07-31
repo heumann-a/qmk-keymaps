@@ -16,10 +16,10 @@
 
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
-#include "../user/combos.h"
-#include "../user/keycodes.h"
-#include "../user/ocean_dream.h"
-#include "../user/luna.h"
+#include "combos.h"
+#include ".keycodes.h"
+#include ".ocean_dream.h"
+#include "luna.h"
 
 /* TEMPLATE
      * ,-----------------------------------------------.                     ,------------------------------------------------.
