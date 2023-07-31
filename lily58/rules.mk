@@ -29,6 +29,7 @@ RGB_MATRIX_ENABLE = yes		# Enable keyboard backlight functionality
 # Keyboard specific defines
 NKRO_ENABLE = yes  
 EXTRAKEY_ENABLE = yes       # Audio control and System control
+WPM_ENABLE = yes
 TAP_DANCE_ENABLE = no		# Enable Tab Dance for Tap-Hold features
 CONSOLE_ENABLE = no
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
@@ -37,3 +38,6 @@ CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 COMBO_ENABLE = yes
+
+OCEAN_DREAM_ENABLE = yes
+LUNA_ENABLE = yes

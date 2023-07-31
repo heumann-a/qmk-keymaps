@@ -8,4 +8,8 @@
 
 // Tap Codes
 #define SPLT(x) LT(x, KC_SPACE)
-#define BSPLT(x) LT(x, KC_BSPC)
+#define BSPLT(x) LT(x, KC_BSPC) 
+
+enum keycodes {
+  KC_CYCLE = QK_USER,
+};

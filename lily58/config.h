@@ -29,20 +29,23 @@
 
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
-#    define SPLIT_OLED_ENABLE
+#   define OLED_DISPLAY_128X32
+#   define SPLIT_OLED_ENABLE
+#   ifdef OLED_DRIVER_ENABLE
+#       define OLED_TIMEOUT 10000
+#       define OLED_DISABLE_TIMEOUT // Prevent matrix_changed triggering oled_on()
+#   endif
 #endif
 
 // Not yet available in `info.json`
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define SPLIT_TRANSPORT_MIRROR
+#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
+#   define RGB_MATRIX_LED_COUNT RGBLED_NUM
+#   define RGB_MATRIX_SPLIT RGBLED_SPLIT
+#   define SPLIT_TRANSPORT_MIRROR
 // Own Settings
-#    define RGB_MATRIX_KEYPRESSES
-#    define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_RGB_MATRIX_BREATHING
-#    define ENABLE_RGB_MATRIX_MULTISPLASH
+#   define RGB_MATRIX_KEYPRESSES
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#   define ENABLE_RGB_MATRIX_BREATHING
+#   define ENABLE_RGB_MATRIX_MULTISPLASH
 #endif
-
