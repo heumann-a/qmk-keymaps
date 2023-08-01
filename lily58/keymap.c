@@ -64,7 +64,6 @@ enum layers {
     // Special Layers
     _RAISE,
     _MEDIA,
-    _NEWQWERTZ = 8,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -163,56 +162,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ____, ____, ____, ____,                                     ____, ____, ____, ____
     ), 
 
-        /* QWERTZ
-     * ,----------------------------------------.                     ,-------------------------------------------------.
-     * |  ESC |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |    PRINT     |
-     * |------+------+------+------+------+------|                    |------+------+------+------+------+--------------|
-     * |  TAB |   Q  |   W  |   E  |   R  |   T  |                    |   Z  |  U   |   I  |  O   |   P  |      #       |
-     * |------+------+------+------+------+------|                    |------+------+------+------+------+--------------|
-     * | SHIFT|   A  |  S   |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ß  |     SHIFT    |
-     * |------+------+------+------+------+------| MEDIA |    |       |------+------+------+------+------+--------------|
-     * | LCTRL|   Y  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M   |  ,  |   .  |   -  |    RCTCL     |
-     * `-----------------------------------------/       /     \      \-------------------------------------------------'
-     *             |  GUI |TT(_RACE)|BSPLT() | LALT /       \ RALT \  | SPLT(_RAISE) | ENTER |  DEL  |
-     *             |      |         ||||||||||||||     /         \      \ |              |||||||||       |
-     *             `----------------------------------'           '------''------------------------------'
-     */
-    
-    [_NEWQWERTZ] = LAYOUT(
-    // ,---------------------------------------------------------------------------------.                                ,--------------------------------------------------------------------------------------------.
-        QK_GESC,    KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                   KC_6,           KC_7,           KC_8, KC_9, KC_0, KC_PSCR,
-    // |---------------------------------------------------------------------------------.                                ,--------------------------------------------------------------------------------------------|
-        KC_TAB,     KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                   DE_Z,           KC_U,           KC_I, KC_O, KC_P, DE_HASH,
-    // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
-        KC_LSFT,    LGUI_T(KC_A),   LALT_T(KC_S),   LCTL_T(KC_D),   LSFT_T(KC_F),   KC_G,                                   KC_H,           RSFT_T(KC_J),   RCTL_T(KC_K), RALT_T(KC_L), RGUI_T(DE_SS), KC_RSFT,
-    // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
-        KC_LCTL,    DE_Y,           KC_X,           KC_C,           KC_V,           KC_B, LT(_MEDIA,KC_PGUP),   LT(KC_BASE,KC_PGDN), KC_N, KC_M,       DE_COMM, DE_DOT, DE_MINS, KC_RCTL,
-    // |---------------------------------------------------------------------------------.                                 ,--------------------------------------------------------------------------------------------|
-            KC_RCMD, TT(_RACING), KC_BSPC , KC_LALT,                                                                        KC_RALT, SPLT(_RAISE), KC_ENTER, KC_DEL
-    )
 };
 
-// Add the behaviour of this new keycode
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  switch (keycode) {
-        case KC_BASE:
-            // Our logic will happen on presses, nothing is done on releases
-            if (!record->event.pressed) { 
-                // We've already handled the keycode (doing nothing), let QMK know so no further code is run unnecessarily
-                return false;
-            }
-
-            layer_invert(_QWERTZ);
-            layer_invert(_NEWQWERTZ);
-                
-            return false;
-
-        // Process other keycodes normally
-        default:
-            return true;
-  }
-}
 
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
 void keyboard_post_init_user(void) {
@@ -227,10 +178,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         rgb_matrix_sethsv (HSV_PURPLE); 
         rgb_matrix_mode_noeeprom(RGB_MATRIX_MULTISPLASH);
         break;
-    // case :
-    //     rgb_matrix_sethsv (HSV_TEAL);
-    //     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR); 
-    //     break;
     case _MEDIA:
         rgb_matrix_sethsv (HSV_CORAL);
         rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR); 

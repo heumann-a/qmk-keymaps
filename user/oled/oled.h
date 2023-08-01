@@ -9,6 +9,7 @@ void render_car(void);
 void render_arcade(void);
 void render_arrow(void);
 void render_media(void);
+void render_navigation(void);
 
 void render_empty_line(void);
 

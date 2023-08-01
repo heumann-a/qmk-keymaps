@@ -12,5 +12,5 @@
 #define BSPLT(x) LT(x, KC_BSPC) 
 
 enum keycodes {
-  KC_BASE = QK_USER,
+  KC_BASE_CYCLE = QK_USER,
 };

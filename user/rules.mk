@@ -22,6 +22,8 @@ OLED_ENABLE ?= no
 OCEAN_DREAM_ENABLE ?= no
 LUNA_ENABLE ?= no
 
+SRC += $(USER_PATH)/keyrecords/keycodes.c
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
 
   SRC += $(USER_PATH)/oled/oled.c

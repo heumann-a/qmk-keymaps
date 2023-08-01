@@ -3,6 +3,7 @@
         "luna.h": "c",
         "combos.h": "c",
         "keycodes.h": "c",
-        "oled.h": "c"
+        "oled.h": "c",
+        "*.new": "c"
     }
 }
