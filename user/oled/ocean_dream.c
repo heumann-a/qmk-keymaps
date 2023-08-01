@@ -41,11 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SHOOTING_STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / SHOOTING_STAR_ANIMATION_SPEED // CALCULATED: Don't Touch
 #define STAR_ANIMATION_MODULATOR NUMBER_OF_FRAMES / STAR_ANIMATION_SPEED                   // CALCULATED: Don't Touch
 
-uint8_t    animation_counter       = 0; // global animation counter.
-bool       is_calm                 = false;
+uint8_t    oc_animation_counter       = 0; // global animation counter.
+bool       oc_is_calm                 = false;
 uint32_t   starry_night_anim_timer = 0;
-uint32_t   starry_night_anim_sleep = 0;
-static int current_wpm             = 0;
+static int oc_current_wpm             = 0;
 
 static uint8_t increment_counter(uint8_t counter, uint8_t max) {
     counter++;
@@ -222,11 +221,11 @@ static void animate_waves(void) {
         if (byte_index >= WIDTH) {
             byte_index = byte_index - WIDTH;
         }
-        if (is_calm || current_wpm <= WAVE_CALM) {
+        if (oc_is_calm || oc_current_wpm <= WAVE_CALM) {
             draw_ocean(0, offset, byte_index);
-        } else if (current_wpm <= WAVE_HEAVY_STORM) {
+        } else if (oc_current_wpm <= WAVE_HEAVY_STORM) {
             draw_ocean(1, offset, byte_index);
-        } else if (current_wpm <= WAVE_HURRICANE) {
+        } else if (oc_current_wpm <= WAVE_HURRICANE) {
             draw_ocean(2, offset, byte_index);
         } else {
             draw_ocean(3 + rough_waves_frame_counter, offset, byte_index);
@@ -268,7 +267,7 @@ static const char PROGMEM islandLeft[18] = {
 // clang-format on
 
 static void animate_island(void) {
-    if (animation_counter == 0) {
+    if (oc_animation_counter == 0) {
         island_frame_1 = increment_counter(island_frame_1, 2);
     }
 
@@ -281,11 +280,11 @@ static void animate_island(void) {
         oled_write_raw_P(islandRightBottom[frame], 14);
     }
 
-    if (is_calm || current_wpm < ISLAND_CALM) {
+    if (oc_is_calm || oc_current_wpm < ISLAND_CALM) {
         draw_island_parts(0);
-    } else if (current_wpm >= ISLAND_CALM && current_wpm < ISLAND_HEAVY_STORM) {
+    } else if (oc_current_wpm >= ISLAND_CALM && oc_current_wpm < ISLAND_HEAVY_STORM) {
         draw_island_parts(island_frame_1 + 1);
-    } else if (current_wpm >= ISLAND_HEAVY_STORM && current_wpm < ISLAND_HURRICANE) {
+    } else if (oc_current_wpm >= ISLAND_HEAVY_STORM && oc_current_wpm < ISLAND_HURRICANE) {
         draw_island_parts(island_frame_1 + 2);
     } else {
         draw_island_parts(island_frame_1 + 4);
@@ -471,7 +470,7 @@ static void animate_shooting_star(struct ShootingStar *shooting_star) {
 }
 
 static void animate_shooting_stars(void) {
-    if (is_calm) {
+    if (oc_is_calm) {
         return;
     }
     if (!shooting_stars_setup) {
@@ -494,7 +493,7 @@ static void animate_shooting_stars(void) {
         }
     }
 
-    int number_of_shooting_stars = current_wpm / SHOOTING_STAR_WPM_INCREMENT;
+    int number_of_shooting_stars = oc_current_wpm / SHOOTING_STAR_WPM_INCREMENT;
     number_of_shooting_stars     = (number_of_shooting_stars > MAX_NUMBER_OF_SHOOTING_STARS) ? MAX_NUMBER_OF_SHOOTING_STARS : number_of_shooting_stars;
 
     if (number_of_shooting_stars == 0) {
@@ -520,14 +519,14 @@ void render_stars(void) {
     //    // animation timer
     if (timer_elapsed32(starry_night_anim_timer) > STARRY_NIGHT_ANIM_FRAME_DURATION) {
         starry_night_anim_timer = timer_read32();
-        current_wpm             = get_current_wpm();
+        oc_current_wpm             = get_current_wpm();
 
 #ifdef ENABLE_ISLAND
         animate_island();
 #endif
 
 #ifdef ENABLE_SHOOTING_STARS
-        if (animation_counter % SHOOTING_STAR_ANIMATION_MODULATOR == 0) {
+        if (oc_animation_counter % SHOOTING_STAR_ANIMATION_MODULATOR == 0) {
             animate_shooting_stars();
         }
 #endif
@@ -542,13 +541,13 @@ void render_stars(void) {
         // Problems:
         // 1. What if someone wants to move the island up a bit, or they want to have the stars reflect in the water?
         // 2. More cpu intensive. And I'm already running out of cpu as it is...
-        if (animation_counter % STAR_ANIMATION_MODULATOR == 0) {
+        if (oc_animation_counter % STAR_ANIMATION_MODULATOR == 0) {
             animate_stars();
         }
 #endif
 
 #ifdef ENABLE_WAVE
-        if (animation_counter % OCEAN_ANIMATION_MODULATOR == 0) {
+        if (oc_animation_counter % OCEAN_ANIMATION_MODULATOR == 0) {
             animate_waves();
         }
 #endif
@@ -557,14 +556,7 @@ void render_stars(void) {
         draw_moon();
 #endif
 
-        animation_counter = increment_counter(animation_counter, NUMBER_OF_FRAMES);
+        oc_animation_counter = increment_counter(oc_animation_counter, NUMBER_OF_FRAMES);
     }
 
-    // this fixes the screen on and off bug - or causes flickering 
-    // if (current_wpm > 0) {
-    //     oled_on();
-    //     starry_night_anim_sleep = timer_read32();
-    // } else if (timer_elapsed32(starry_night_anim_sleep) > OLED_TIMEOUT) {
-    //     oled_off();
-    // }
 }

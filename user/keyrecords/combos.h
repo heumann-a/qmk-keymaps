@@ -1,5 +1,5 @@
 #pragma once
-
+#include "quantum.h"
 
 enum combos {
   O_ODIA,

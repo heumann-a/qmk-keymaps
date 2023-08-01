@@ -17,27 +17,16 @@
 # BOOTLOADER = rp2040 # currently not supported
 CONVERT_TO=promicro_rp2040
 
-ENCODER_ENABLE = no
 
 OLED_ENABLE = yes
+OCEAN_DREAM_ENABLE = yes
+LUNA_ENABLE = yes
 
 # RGB Matrix is enabled at the revision level,
 # while we use the regular RGB underglow for testing
 RGBLIGHT_ENABLE = no		# Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes		# Enable keyboard backlight functionality
 
-# Keyboard specific defines
-NKRO_ENABLE = yes  
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-WPM_ENABLE = yes
+# Keyboard specific defines overwrite userspace
 TAP_DANCE_ENABLE = no		# Enable Tab Dance for Tap-Hold features
-CONSOLE_ENABLE = no
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-COMBO_ENABLE = yes
 
-OCEAN_DREAM_ENABLE = yes
-LUNA_ENABLE = yes

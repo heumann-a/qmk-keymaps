@@ -2,6 +2,7 @@
     "files.associations": {
         "luna.h": "c",
         "combos.h": "c",
-        "keycodes.h": "c"
+        "keycodes.h": "c",
+        "oled.h": "c"
     }
 }

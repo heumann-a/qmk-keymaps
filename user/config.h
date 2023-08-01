@@ -7,7 +7,12 @@
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
-
-
-#define COMBO_COUNT 3
 // END Disable Debug
+
+#ifdef OLED_ENABLE
+#   define OLED_TIMEOUT 10000
+#   define CUSTOM_OLED_TIMEOUT 15000
+#endif
+
+// Own Defines
+#define COMBO_COUNT 3

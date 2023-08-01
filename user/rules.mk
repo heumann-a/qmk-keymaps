@@ -1,44 +1,51 @@
 
 
-# Keyboard specific defines
-NKRO_ENABLE = yes  
-EXTRAKEY_ENABLE = yes       # Audio control and System control
-WPM_ENABLE = yes
-TAP_DANCE_ENABLE = no		# Enable Tab Dance for Tap-Hold features
-CONSOLE_ENABLE = no
-BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
-MOUSEKEY_ENABLE = no        # Mouse keys
-CONSOLE_ENABLE = no         # Console for debug
-COMMAND_ENABLE = no         # Commands for debug and configuration
-SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-AUDIO_ENABLE = no           # Audio output on port C6
-MIDI_ENABLE = no            # MIDI controls
+# User wide defines
+CONSOLE_ENABLE ?= no
+BOOTMAGIC_ENABLE ?= no       # Enable Bootmagic Lite
+CONSOLE_ENABLE ?= no         # Console for debug
+COMMAND_ENABLE ?= no         # Commands for debug and configuration
 
-OCEAN_DREAM_ENABLE = yes
-LUNA_ENABLE = yes
+SWAP_HANDS_ENABLE ?= no      # Enable one-hand typing
+AUDIO_ENABLE ?= no           # Audio output on port C6
+EXTRAKEY_ENABLE ?= yes       # Audio control and System control
+MIDI_ENABLE ?= no            # MIDI controls
+
+NKRO_ENABLE ?= yes  
+COMBO_ENABLE ?= yes
+ENCODER_ENABLE ?= no
+TAP_DANCE_ENABLE ?= no		# Enable Tab Dance for Tap-Hold features
+MOUSEKEY_ENABLE ?= no        # Mouse keys
+
+WPM_ENABLE ?= yes
+OLED_ENABLE ?= no
+OCEAN_DREAM_ENABLE ?= no
+LUNA_ENABLE ?= no
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
 
+  SRC += $(USER_PATH)/oled/oled.c
+
   ifdef OCEAN_DREAM_ENABLE
     ifeq ($(strip $(OCEAN_DREAM_ENABLE)), yes)
-      SRC +=  $(USER_PATH)/animations/ocean_dream.c
+      SRC +=  $(USER_PATH)/oled/ocean_dream.c
       OPT_DEFS += -DOCEAN_DREAM_ENABLE
     endif
   endif
   ifndef OCEAN_DREAM_ENABLE
-    SRC += $(USER_PATH)/animations/ocean_dream.c
+    SRC += $(USER_PATH)/oled/ocean_dream.c
     OPT_DEFS += -DOCEAN_DREAM_ENABLE
   endif
 
 
   ifdef LUNA_ENABLE
     ifeq ($(strip $(LUNA_ENABLE)), yes)
-      SRC +=  $(USER_PATH)/animations/luna.c
+      SRC +=  $(USER_PATH)/oled/luna.c
       OPT_DEFS += -DLUNA_ENABLE
     endif
   endif
   ifndef LUNA_ENABLE
-    SRC += $(USER_PATH)/animations/luna.c
+    SRC += $(USER_PATH)/oled/luna.c
     OPT_DEFS += -DLUNA_ENABLE
   endif
   

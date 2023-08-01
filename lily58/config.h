@@ -24,17 +24,15 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
+
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
 
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
+#   undef OLED_DISPLAY_128X64
 #   define OLED_DISPLAY_128X32
 #   define SPLIT_OLED_ENABLE
-#   ifdef OLED_DRIVER_ENABLE
-#       define OLED_TIMEOUT 10000
-#       define OLED_DISABLE_TIMEOUT // Prevent matrix_changed triggering oled_on()
-#   endif
 #endif
 
 // Not yet available in `info.json`

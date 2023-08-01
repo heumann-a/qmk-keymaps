@@ -28,20 +28,19 @@
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
 #define ANIM_SIZE 96            // number of bytes in array. If you change sprites, minimize for adequate firmware size. max is 1024
 
-bool isSneaking = false;
-bool isJumping  = false;
-bool showedJump = true;
+bool luna_isSneaking = false;
+bool luna_isJumping  = false;
+bool luna_showedJump = true;
 
 // status variables
-int   current_wpm_luna = 0;
+int   luna_current_wpm = 0;
 led_t led_usb_state    = {.num_lock = false, .caps_lock = false, .scroll_lock = false};
 
 // current frame
-uint8_t current_frame = 0;
+uint8_t luna_current_frame = 0;
 
 // timers
-uint32_t anim_timer_luna = 0;
-uint32_t anim_sleep = 0;
+uint32_t luna_anim_timer = 0;
 
 // logic
 void render_luna(int LUNA_X, int LUNA_Y) {
@@ -101,14 +100,14 @@ void render_luna(int LUNA_X, int LUNA_Y) {
     // animation
     void animation_phase(void) {
         // jump
-        if (isJumping || !showedJump) {
+        if (luna_isJumping || !luna_showedJump) {
             // clear
             oled_set_cursor(LUNA_X, LUNA_Y + 2);
             oled_write("     ", false);
 
             oled_set_cursor(LUNA_X, LUNA_Y - 1);
 
-            showedJump = true;
+            luna_showedJump = true;
         } else {
             // clear
             oled_set_cursor(LUNA_X, LUNA_Y - 1);
@@ -118,40 +117,34 @@ void render_luna(int LUNA_X, int LUNA_Y) {
         }
 
         // switch frame
-        current_frame = (current_frame + 1) % 2;
+        luna_current_frame = (luna_current_frame + 1) % 2;
 
         // current status
         if (led_usb_state.caps_lock) {
-            oled_write_raw_P(bark[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(bark[abs(1 - luna_current_frame)], ANIM_SIZE);
 
-        } else if (isSneaking) {
-            oled_write_raw_P(sneak[abs(1 - current_frame)], ANIM_SIZE);
+        } else if (luna_isSneaking) {
+            oled_write_raw_P(sneak[abs(1 - luna_current_frame)], ANIM_SIZE);
 
-        } else if (current_wpm_luna <= MIN_WALK_SPEED) {
-            oled_write_raw_P(sit[abs(1 - current_frame)], ANIM_SIZE);
+        } else if (luna_current_wpm <= MIN_WALK_SPEED) {
+            oled_write_raw_P(sit[abs(1 - luna_current_frame)], ANIM_SIZE);
 
-        } else if (current_wpm_luna <= MIN_RUN_SPEED) {
-            oled_write_raw_P(walk[abs(1 - current_frame)], ANIM_SIZE);
+        } else if (luna_current_wpm <= MIN_RUN_SPEED) {
+            oled_write_raw_P(walk[abs(1 - luna_current_frame)], ANIM_SIZE);
 
         } else {
-            oled_write_raw_P(run[abs(1 - current_frame)], ANIM_SIZE);
+            oled_write_raw_P(run[abs(1 - luna_current_frame)], ANIM_SIZE);
         }
     }
 
     // animation timer
-    if (timer_elapsed32(anim_timer_luna) > ANIM_FRAME_DURATION) {
-        anim_timer_luna       = timer_read32();
-        current_wpm_luna = get_current_wpm();
+    if (timer_elapsed32(luna_anim_timer) > ANIM_FRAME_DURATION) {
+        luna_anim_timer       = timer_read32();
+        luna_current_wpm = get_current_wpm();
         animation_phase();
     }
 
-    // this fixes the screen on and off bug
-    // if (current_wpm_luna > 0) {
-    //     oled_on();
-    //     anim_sleep = timer_read32();
-    // } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-    //     oled_off();
-    // }
+
 }
 
 // KEYBOARD PET END

@@ -109,7 +109,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * DON'T TOUCH
  */
 
-extern bool is_calm;
+extern bool oc_is_calm;
 
 // timers
 extern uint32_t starry_night_anim_timer;
