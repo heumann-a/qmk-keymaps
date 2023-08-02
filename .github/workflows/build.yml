@@ -1,0 +1,37 @@
+name: QMK Firmware
+
+on:
+  push:
+    branches: [master,main]
+
+env:
+  KEYMAP: hexa
+  KEYBOARD: splitkb/aurora/lily58/rev1
+
+jobs:
+  Build-QMK-Firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout own repo
+        uses: actions/checkout@v3
+        with:
+          path: keymaps
+      - name: Checkout QMK repo
+        uses: actions/checkout@v3
+        with:
+          repository: qmk/qmk_firmware
+          submodules: recursive
+          path: qmk_firmware
+      - name: Copy keyboard file into QMK Firmware
+        run: cp -r "./keymaps/lily58-new"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+      - name: Copy userspace files into QMK Firmware
+        run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
+      - name: Build Firmware
+        run: util/docker_build.sh $KEYBOARD:$KEYMAP
+        working-directory: ./qmk_firmware 
+      - name: Save Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: hexa-firmware
+          path: ./qmk_firmware/splitkb_aurora_lily58_rev1_hexa_promicro_rp2040.uf2
+          if-no-files-found: error
