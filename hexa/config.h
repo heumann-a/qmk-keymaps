@@ -26,4 +26,4 @@
 
 
 // Own Defines
-#define COMBO_COUNT 3
+#define COMBO_COUNT 4

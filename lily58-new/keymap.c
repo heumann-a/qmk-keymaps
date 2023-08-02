@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
         KC_LCTL,    DE_Y,           KC_X,           KC_C,           KC_V,           KC_B, TO(_TRACKMANIA),  TO(_GAMING),    KC_N,           KC_M,           DE_COMM,        DE_DOT,         DE_MINS,        KC_RCTL,
     // \-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-                LT(_MEDIA,KC_RCMD), MO(_SYMBOLS), BSPLT(_NAVIGATION), LT(_NUMPAD,KC_LALT),                                    KC_RALT,    SPLT(_SYMBOLS),   KC_ENTER,       KC_DEL
+                LT(_MEDIA,KC_RCMD), MO(_SYMBOLS), BSPLT(_NAVIGATION), LT(_NUMPAD,QK_GESC),                                    KC_TAB,    SPLT(_SYMBOLS),   KC_ENTER,       KC_DEL
     ),
 
     [_NAVIGATION] = LAYOUT(
