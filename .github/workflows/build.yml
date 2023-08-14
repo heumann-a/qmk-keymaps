@@ -23,7 +23,7 @@ jobs:
           submodules: recursive
           path: qmk_firmware
       - name: Copy keyboard file into QMK Firmware
-        run: cp -r "./keymaps/lily58-new"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+        run: cp -r "./keymaps/lily5"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
       - name: Build Firmware
