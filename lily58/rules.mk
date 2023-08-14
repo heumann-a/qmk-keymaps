@@ -26,6 +26,7 @@ LUNA_ENABLE = yes
 # while we use the regular RGB underglow for testing
 RGBLIGHT_ENABLE = no		# Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE = yes		# Enable keyboard backlight functionality
+RGB_MATRIX_KEYPRESSES = yes
 
 # Keyboard specific defines overwrite userspace
 TAP_DANCE_ENABLE = no		# Enable Tab Dance for Tap-Hold features

@@ -56,14 +56,6 @@ case ${KEYBOARD_FOLDERNAME} in
         cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
-    "lily58-new" )
-        echo "> Keymap folder lily58-new will be used!"
-        KEYBOARD="splitkb/aurora/lily58/rev1"
-        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
-        FILENAME="splitkb_aurora_lily58_rev1"
-        cp -r "${WORKING_DIR}/lily58-new" "${KEYMAP_LINK}"
-        cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
-        ;;
     *)
         echo -e "No Keyboard specified! \nExiting..."
         exit 0
