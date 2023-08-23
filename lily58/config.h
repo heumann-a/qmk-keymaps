@@ -24,6 +24,12 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 
+
+#define TAPPING_TERM 150
+#define TAPPING_TOGGLE 2
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES
 
@@ -37,10 +43,6 @@
 #ifdef RGB_MATRIX_KEYPRESSES  
 #   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #endif
-
-
-#define TAPPING_TERM 150
-#define TAPPING_TOGGLE 2
 
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
