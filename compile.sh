@@ -8,7 +8,6 @@ export LANG=C.UTF-8
 KEYMAP="hexa"
 
 WORKING_DIR="$(pwd)"
-export QMK_FIRMWARE_HOME="${WORKING_DIR}/../qmk_firmware"
 QMK_USER="${WORKING_DIR}/hexa"
 
 
@@ -49,7 +48,26 @@ echo -e "-------------------------\n"
 #------------------------------------------
 case ${KEYBOARD_FOLDERNAME} in
     "lily58" )
+        export QMK_FIRMWARE_HOME="${WORKING_DIR}/../qmk_firmware"
         echo "> Keymap folder lily58 will be used!"
+        KEYBOARD="splitkb/aurora/lily58/rev1"
+        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+        FILENAME="splitkb_aurora_lily58_rev1"
+        cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
+        cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
+        ;;
+    "fw16_keyboard" )
+        export QMK_FIRMWARE_HOME="${WORKING_DIR}/../fw16_qmk_firmware"
+        echo "> Keymap folder fw16_keyboard will be used!"
+        KEYBOARD="splitkb/aurora/lily58/rev1"
+        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+        FILENAME="splitkb_aurora_lily58_rev1"
+        cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
+        cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
+        ;;
+    "fw16_macropad" )
+        export QMK_FIRMWARE_HOME="${WORKING_DIR}/../fw16_qmk_firmware"
+        echo "> Keymap folder fw16_macropad will be used!"
         KEYBOARD="splitkb/aurora/lily58/rev1"
         KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
         FILENAME="splitkb_aurora_lily58_rev1"
@@ -74,7 +92,8 @@ case ${ACTION} in
     "flash" )
         make ${KEYBOARD}:${KEYMAP}:flash -o ${FILENAME}
         ;;
-    "clean" )
+    "clean" )  
+        qmk clean
         echo -e "> Removing Output files..."
         echo -e ">      .*hex files in qmk_firmware folder"
         echo -e ">      .build folder in qmk_firmware folder"
