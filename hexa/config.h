@@ -15,13 +15,5 @@
 #   define CUSTOM_OLED_TIMEOUT 15000
 #endif
 
-// Not yet available in `info.json`
-#ifdef RGB_MATRIX_ENABLE
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
-#   define SPLIT_TRANSPORT_MIRROR
-#endif
-
-
-
 // Own Defines
 #define COMBO_COUNT 4

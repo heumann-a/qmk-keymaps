@@ -17,7 +17,6 @@
 # BOOTLOADER = rp2040 # currently not supported
 CONVERT_TO=promicro_rp2040
 
-
 OLED_ENABLE = yes
 OCEAN_DREAM_ENABLE = yes
 LUNA_ENABLE = yes
@@ -30,5 +29,4 @@ RGB_MATRIX_KEYPRESSES = yes
 
 # Keyboard specific defines overwrite userspace
 TAP_DANCE_ENABLE = no		# Enable Tab Dance for Tap-Hold features
-
 CAPS_WORD_ENABLE = yes		# Enable Caps Word 

@@ -16,14 +16,10 @@
 
 #pragma once
 
-// `SPLIT_HAND_PIN` can currently be defined in `info.json`,
-// but can't yet be given a value
-#define SPLIT_HAND_PIN F5
-
 // Force Update of Information for Second OLED
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
-
+#undef SPLIT_USB_DETECT
 
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
@@ -32,7 +28,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES
-
 #   define ENABLE_RGB_MATRIX_BREATHING
 #   define ENABLE_RGB_MATRIX_HUE_BREATHING
 #   define ENABLE_RGB_MATRIX_MULTISPLASH
