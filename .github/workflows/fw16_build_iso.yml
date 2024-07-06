@@ -1,4 +1,4 @@
-name: FW16 QMK Firmware
+name: FW16 QMK Firmware ISO Keyboard
 
 on:
   push:

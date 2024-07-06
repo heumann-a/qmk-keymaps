@@ -1,9 +1,9 @@
-name: FW16 QMK Firmware
+name: FW16 QMK Firmware Macropad
 
 on:
   push:
     branches: [master,main]
-    paths: ['fw16_keyboard/**','fw16_macropad/**']
+    paths: ['fw16_macropad/**']
 
 
 env:
