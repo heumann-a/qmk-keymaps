@@ -56,22 +56,22 @@ case ${KEYBOARD_FOLDERNAME} in
         cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
-    "fw16_keyboard" )
+    "fw16_iso" )
         export QMK_FIRMWARE_HOME="${WORKING_DIR}/../fw16_qmk_firmware"
-        echo "> Keymap folder fw16_keyboard will be used!"
-        KEYBOARD="splitkb/aurora/lily58/rev1"
-        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
-        FILENAME="splitkb_aurora_lily58_rev1"
-        cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
+        echo "> Keymap folder fw16_iso will be used!"
+        KEYBOARD="framework/iso"
+        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/framework/iso/keymaps/${KEYMAP}"
+        FILENAME="fw16_iso_keyboard"
+        cp -r "${WORKING_DIR}/fw16_iso" "${KEYMAP_LINK}"
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
     "fw16_macropad" )
         export QMK_FIRMWARE_HOME="${WORKING_DIR}/../fw16_qmk_firmware"
         echo "> Keymap folder fw16_macropad will be used!"
-        KEYBOARD="splitkb/aurora/lily58/rev1"
-        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
-        FILENAME="splitkb_aurora_lily58_rev1"
-        cp -r "${WORKING_DIR}/lily58" "${KEYMAP_LINK}"
+        KEYBOARD="framework/macropad"
+        KEYMAP_LINK="${QMK_FIRMWARE_HOME}/keyboards/framework/macropad/keymaps/${KEYMAP}"
+        FILENAME="fw16_macropad"
+        cp -r "${WORKING_DIR}/fw16_macropad" "${KEYMAP_LINK}"
         cp -r "${QMK_USER}" "${QMK_FIRMWARE_HOME}/users/${KEYMAP}"
         ;;
     *)
@@ -87,7 +87,7 @@ pushd ${QMK_FIRMWARE_HOME}
 case ${ACTION} in
     "build" )
         echo -e "> Compiling Firmware now...\n"
-        make "${KEYBOARD}:${KEYMAP}"
+        qmk compile -kb ${KEYBOARD} -km ${KEYMAP}
         ;;
     "flash" )
         make ${KEYBOARD}:${KEYMAP}:flash -o ${FILENAME}
@@ -107,7 +107,6 @@ case ${ACTION} in
         ;;
 esac
 popd
-
 
 #------------------------------------------
 #  Cleanup of Links and Files

@@ -12,10 +12,14 @@ A user repository with own keymaps for QMK Keyboards, followed guide:
 
 - Linux
 - Window (Cygwin Console).
+- Python
 
 ## Setup own small QMK Repo
 
-1. Clone this and the oringal qmk repo into the same folder and execute qmk setup
+1. Install QMK via python
+2.  Clone this, the oringal qmk repo and if necessary the framework qmk repo next to each other in one folder
+3. Enter the original QMK and execute qmk setup
+4. Enter the framework repo and checkout the latest tag of the repo, than execute qmk doctor to see if everything works
 
 ```shell
 git clone <url> [folder] 
@@ -24,12 +28,13 @@ git clone https://github.com/FrameworkComputer/qmk_firmware.git fw16_qmk_firmwar
 cd qmk_firmware
 qmk setup
 cd ../fw16_qmk_firmware
+git fetch --all --tags
+git checkout $(git describe --tags "$(git rev-list --tags --max-count=1)")
 qmk doctor
 ```
 
-
-2. Remove/Replace folder [lily58](lily58) with your specific keymap/keyboard.
-3. Replace content of [user](user) folder with your own information.
+1. Remove/Replace folder [lily58](lily58) with your specific keymap/keyboard.
+2. Replace content of [user](user) folder with your own information.
 
 
 # Usage
