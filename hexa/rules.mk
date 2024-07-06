@@ -1,7 +1,6 @@
 
 
 # User wide defines
-CONSOLE_ENABLE ?= no
 BOOTMAGIC_ENABLE ?= no       # Enable Bootmagic Lite
 CONSOLE_ENABLE ?= no         # Console for debug
 COMMAND_ENABLE ?= no         # Commands for debug and configuration
