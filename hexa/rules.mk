@@ -15,7 +15,7 @@ COMBO_ENABLE ?= yes
 ENCODER_ENABLE ?= no
 TAP_DANCE_ENABLE ?= no		# Enable Tab Dance for Tap-Hold features
 MOUSEKEY_ENABLE ?= no        # Mouse keys
-
+CAPS_WORD_ENABLE = no	
 
 RGBLIGHT_ENABLE ?= no		  # Enable WS2812 RGB underlight.
 RGB_MATRIX_ENABLE ?= no  # Enable keyboard backlight functionality
