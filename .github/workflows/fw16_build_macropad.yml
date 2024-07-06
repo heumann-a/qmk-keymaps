@@ -1,17 +1,17 @@
-name: QMK Firmware
+name: FW16 QMK Firmware
 
 on:
   push:
     branches: [master,main]
-    paths: ['lily58/**']
+    paths: ['fw16_keyboard/**','fw16_macropad/**']
 
 
 env:
   KEYMAP: hexa
-  KEYBOARD: splitkb/aurora/lily58/rev1
+  MACROPAD: splitkb/aurora/lily58/rev1
 
 jobs:
-  Build-QMK-Firmware:
+  Build-QMK-Firmware-Macropad:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout own repo
@@ -24,8 +24,8 @@ jobs:
           repository: qmk/qmk_firmware
           submodules: recursive
           path: qmk_firmware
-      - name: Copy lily58 keyboard file into QMK Firmware
-        run: cp -r "./keymaps/lily58"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+      - name: Copy macropad file into QMK Firmware
+        run: cp -r "./keymaps/fw16_macropad"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
       - name: Build Firmware
@@ -34,6 +34,6 @@ jobs:
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hexa-firmware-lily58
+          name: hexa-firmware-fw16-macropad
           path: ./qmk_firmware/splitkb_aurora_lily58_rev1_hexa_promicro_rp2040.uf2
           if-no-files-found: error
