@@ -25,6 +25,7 @@ jobs:
           repository: FrameworkComputer/qmk_firmware
           submodules: recursive
           path: qmk_firmware
+          fetch-tags: true
           ref: $TAG
       - name: Copy iso keyboard file into QMK Firmware
         run: cp -r "./keymaps/fw16_iso"  "./qmk_firmware/keyboards/framework/iso/keymaps/${KEYMAP}"
