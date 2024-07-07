@@ -25,11 +25,11 @@ jobs:
           submodules: recursive
           path: qmk_firmware
       - name: Copy lily58 keyboard file into QMK Firmware
-        run: cp -r "./keymaps/lily58"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${KEYMAP}"
+        run: cp -r "./keymaps/lily58"  "./qmk_firmware/keyboards/splitkb/aurora/lily58/keymaps/${{ env.KEYMAP }}"
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
       - name: Build Firmware
-        run: util/docker_build.sh $KEYBOARD:$KEYMAP
+        run: util/docker_build.sh ${{ env.KEYBOARD }}:${{ env.KEYMAP }}
         working-directory: ./qmk_firmware 
       - name: Save Artifact
         uses: actions/upload-artifact@v4

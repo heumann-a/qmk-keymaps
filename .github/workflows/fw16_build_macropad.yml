@@ -32,7 +32,7 @@ jobs:
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
       - name: Build Firmware
-        run: utildocker_build.sh $KEYBOARD:$KEYMAP
+        run: util/docker_build.sh ${{ env.KEYBOARD }}:${{ env.KEYMAP }}
         working-directory: ./qmk_firmware 
       - name: Get directory
         run: ls     
