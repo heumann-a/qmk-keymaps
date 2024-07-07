@@ -3,7 +3,7 @@ name: FW16 QMK Firmware ISO Keyboard
 on:
   push:
     branches: [master,main]
-    paths: ['fw16_keyboard/**']
+    paths: ['fw16_iso/**']
 
 
 env:
