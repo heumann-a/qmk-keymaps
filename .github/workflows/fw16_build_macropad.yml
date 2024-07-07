@@ -9,6 +9,7 @@ on:
 env:
   KEYMAP: hexa
   KEYBOARD: framework/macropad
+  TAG: v0.2.9
 
 jobs:
   Build-QMK-Firmware-Macropad:
@@ -18,25 +19,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: keymaps
-      - name: Get latest release with tag
-        id: latestrelease
-        run: echo "::set-output name=releasetag::$(curl -s https://github.com/FrameworkComputer/qmk_firmware/releases/latest | jq '.tag_name' | sed 's/\"//g')"
-      - name: Confirm release tag
-        run: echo ${{ steps.latestrelease.outputs.releasetag }}
       - name: Checkout QMK repo
         uses: actions/checkout@v4
         with:
           repository: FrameworkComputer/qmk_firmware
           submodules: recursive
           path: qmk_firmware
-          ref: ${{ steps.latestrelease.outputs.releasetag }}
+          ref: $TAG
       - name: Copy macropad files into QMK Firmware
         run: cp -r "./keymaps/fw16_macropad"  "./qmk_firmware/keyboards/framework/macropad/keymaps/${KEYMAP}"
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
-      - name: /Build Firmware
+      - name: Build Firmware
         run: utildocker_build.sh $KEYBOARD:$KEYMAP
         working-directory: ./qmk_firmware 
+      - name: Get directory
+        run: ls     
+      - name: Get directory qmk
+        run: ls
+        working-directory: ./qmk_firmware
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:

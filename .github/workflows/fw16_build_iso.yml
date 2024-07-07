@@ -8,7 +8,8 @@ on:
 
 env:
   KEYMAP: hexa
-  KEYBOARD: framework/iso
+  KEYBOARD: framework/iso 
+  TAG: v0.2.9
 
 jobs:
   Build-QMK-Firmware-Keyboard:
@@ -18,19 +19,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: keymaps
-      - name: Get latest release with tag
-        id: latestrelease
-        run: echo "::set-output name=releasetag::$(curl -s https://github.com/FrameworkComputer/qmk_firmware/releases/latest | jq '.tag_name' | sed 's/\"//g')"
-      - name: Confirm release tag
-        run: echo ${{ steps.latestrelease.outputs.releasetag }}
       - name: Checkout QMK repo
         uses: actions/checkout@v4
         with:
           repository: FrameworkComputer/qmk_firmware
           submodules: recursive
           path: qmk_firmware
-          ref: ${{ steps.latestrelease.outputs.releasetag }}
-      - name: Copy keyboard file into QMK Firmware
+          ref: $TAG
+      - name: Copy iso keyboard file into QMK Firmware
         run: cp -r "./keymaps/fw16_iso"  "./qmk_firmware/keyboards/framework/iso/keymaps/${KEYMAP}"
       - name: Copy userspace files into QMK Firmware
         run: cp -r "./keymaps/hexa" "./qmk_firmware/users/hexa"
@@ -39,7 +35,7 @@ jobs:
         working-directory: ./qmk_firmware 
       - name: Get directory
         run: ls     
-      - name: Get directory
+      - name: Get directory qmk
         run: ls
         working-directory: ./qmk_firmware
       - name: Save Artifact
