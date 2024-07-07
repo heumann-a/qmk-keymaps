@@ -34,11 +34,6 @@ jobs:
       - name: Build Firmware
         run: util/docker_build.sh ${{ env.KEYBOARD }}:${{ env.KEYMAP }}
         working-directory: ./qmk_firmware 
-      - name: Get directory
-        run: ls     
-      - name: Get directory qmk
-        run: ls
-        working-directory: ./qmk_firmware
       - name: Save Artifact
         uses: actions/upload-artifact@v4
         with:
