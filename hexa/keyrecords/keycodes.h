@@ -1,6 +1,10 @@
 // Own Keycodes 
 #pragma once
 
+#include "quantum.h"
+#include "action.h"
+#include "version.h"
+
 #define ____ KC_TRNS
 #define XXXX KC_NO
 
@@ -12,5 +16,6 @@
 #define BSPLT(x) LT(x, KC_BSPC) 
 
 enum keycodes {
-  KC_BASE_CYCLE = QK_USER,
+  KC_BASE_CYCLE = SAFE_RANGE,
+  NEW_SAFE_RANGE
 };
