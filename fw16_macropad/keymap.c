@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * 24 total
  +    */
     [MEDIA] = LAYOUT(
-        XXXXXXX, XXXXXXX, _______, QK_BOOT,
+        EE_CLR,  XXXXXXX, _______,  QK_BOOT,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,
         KC_PGUP, KC_UP,   KC_PGDN, XXXXXXX,
@@ -103,14 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void keyboard_post_init_user(void) {
 
     // does not work at all
-    // rgb_matrix_enable_noeeprom();
-    // rgb_matrix_sethsv_noeeprom(HSV_WHITE);
-    // rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv(HSV_WHITE);
+    // rgb_matrix_set_flags(LED_FLAG_ALL);
 
-    // Short flicker and goes back dark
-    // rgb_matrix_enable_noeeprom();
-    // rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-    // rgb_matrix_set_color_all(HSV_SPRINGGREEN);
 
     // Sync initial NUMPAD state from the host
     if (host_keyboard_led_state().num_lock) {
@@ -138,7 +135,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 bool rgb_matrix_indicators_kb() {
 
     led_t led_state = host_keyboard_led_state();
-
     if (led_state.num_lock) {
         layer_off(FN);
     } else {
@@ -150,26 +146,26 @@ bool rgb_matrix_indicators_kb() {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
-    uprintf("Layer State %u\n", state);
+    // uprintf("Layer State %u\n", state);
     // does nothing as of right now
-    // switch (get_highest_layer(state)) {
-    // case FN:
-    //     uprintf("State FN\n");
-    //     rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
-    //     rgb_matrix_sethsv_noeeprom(HSV_TEAL);
-    //     break;
-    // case MEDIA:
-    //     uprintf("State MEDIA\n");
-    //     rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
-    //     rgb_matrix_sethsv_noeeprom(HSV_TEAL);
-    //     break;
-    // case NUMPAD:
-    // default: //  for any other layers, or the default layer
-    //     uprintf("State NUMPAD\n");
-    //     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
-    //     rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
-    //     break;
-    // }
+    switch (get_highest_layer(state)) {
+    case FN:
+        // uprintf("State FN\n");
+        rgb_matrix_mode(RGB_MATRIX_BREATHING);
+        rgb_matrix_sethsv(HSV_TEAL);
+        break;
+    case MEDIA:
+        // uprintf("State MEDIA\n");
+        rgb_matrix_mode(RGB_MATRIX_HUE_WAVE);
+        rgb_matrix_sethsv(HSV_TEAL);
+        break;
+    case NUMPAD:
+    default: //  for any other layers, or the default layer
+        // uprintf("State NUMPAD\n");
+        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+        rgb_matrix_sethsv(HSV_PURPLE);
+        break;
+    }
 
     return state;
 }
