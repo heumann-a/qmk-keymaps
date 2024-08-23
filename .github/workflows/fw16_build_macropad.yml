@@ -9,7 +9,7 @@ on:
 env:
   KEYMAP: hexa
   KEYBOARD: framework/macropad
-  TAG: v0.2.9
+  TAG: fl16-v0.2.8-prep
 
 jobs:
   Build-QMK-Firmware-Macropad:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout QMK repo
         uses: actions/checkout@v4
         with:
-          repository: FrameworkComputer/qmk_firmware
+          repository: heumann-a/fw_qmk_firmware
           ref: ${{ env.TAG }}
           path: qmk_firmware
           fetch-depth: 0
