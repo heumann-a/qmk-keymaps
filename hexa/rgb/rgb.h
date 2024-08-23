@@ -1,1 +1,18 @@
-//TODO: add own rgb
+#define HSV_AZURE_HALF       132, 102, 122
+#define HSV_BLUE_HALF        170, 255, 122
+#define HSV_CHARTREUSE_HALF   64, 255, 122
+#define HSV_CORAL_HALF        11, 176, 122
+#define HSV_CYAN_HALF        128, 255, 122
+#define HSV_GOLD_HALF         36, 255, 122
+#define HSV_GOLDENROD_HALF    30, 218, 122
+#define HSV_GREEN_HALF        85, 255, 122
+#define HSV_MAGENTA_HALF     213, 255, 122
+#define HSV_ORANGE_HALF       21, 255, 122
+#define HSV_PINK_HALF        234, 128, 122
+#define HSV_PURPLE_HALF      191, 255, 122
+#define HSV_RED_HALF           0, 255, 122
+#define HSV_SPRINGGREEN_HALF 106, 255, 122
+#define HSV_TEAL_HALF        128, 255, 64
+#define HSV_TURQUOISE_HALF   123,  90, 56
+#define HSV_WHITE_HALF         0,   0, 122
+#define HSV_YELLOW_HALF       43, 255, 122
