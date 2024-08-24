@@ -132,15 +132,12 @@ bool led_update_user(led_t led_state) {
     * thus resulting in broken RGB Matrix
     */
     static bool last_value = false;
-    if (led_state.num_lock) {
-        if(last_value != led_state.num_lock) {
+    if(last_value != led_state.num_lock) {
+        last_value = led_state.num_lock;
+        if (led_state.num_lock) {
             layer_off(FN);
-            last_value = led_state.num_lock;
-        }
-    } else {
-        if(last_value != led_state.num_lock) {
+        } else {
             layer_on(FN);
-            last_value = led_state.num_lock;
         }
     }
     return true;
