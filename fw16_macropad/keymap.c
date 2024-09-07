@@ -14,8 +14,6 @@ enum layers {
     MEDIA
 };
 
-static bool last_numpad_value = false;
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      /*
      *         ┌────┬────┬────┬────┐
@@ -108,12 +106,10 @@ void keyboard_post_init_user(void) {
     /*
     * Sync initial NUMPAD state from the host
     */
-    if (host_keyboard_led_state().num_lock) {
+    if ( host_keyboard_led_state().num_lock ) {
         layer_on(FN);
-        last_numpad_value = true;
     } else {
         layer_off(FN);
-        last_numpad_value = false;
     }
 
     rgb_matrix_enable();
@@ -132,12 +128,10 @@ bool led_update_user(led_t led_state) {
     * Keep NUMPAD state in sync with the host
     * can be triggered by OS or numlock key
     * 
-    * need to save last state to avoid triggering layer_state_set_user() endlessly
-    * thus resulting in broken RGB Matrix
+    * Trigger function if State of Macropad does not align with 
+    * state of NumLock Key
     */
-
-    if(last_numpad_value != led_state.num_lock) {
-        last_numpad_value = led_state.num_lock;
+    if ( ( IS_LAYER_ON(FN) && led_state.num_lock ) || ( IS_LAYER_OFF(FN) && !led_state.num_lock ) ) {
         if (led_state.num_lock) {
             layer_off(FN);
         } else {
