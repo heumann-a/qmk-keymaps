@@ -106,10 +106,14 @@ void keyboard_post_init_user(void) {
     /*
     * Sync initial NUMPAD state from the host
     */
-    if ( host_keyboard_led_state().num_lock ) {
-        layer_on(FN);
+   if (host_keyboard_led_state().num_lock) { 
+    // NUM Lock active, disable overlay layer
+        if ( IS_LAYER_ON(FN) )
+            layer_off(FN);
     } else {
-        layer_off(FN);
+        // NUM Lock deactivate, enable overlay layer
+        if ( IS_LAYER_OFF(FN) )
+            layer_on(FN);
     }
 
     rgb_matrix_enable();
@@ -131,13 +135,17 @@ bool led_update_user(led_t led_state) {
     * Trigger function if State of Macropad does not align with 
     * state of NumLock Key
     */
-    if ( ( IS_LAYER_ON(FN) && led_state.num_lock ) || ( IS_LAYER_OFF(FN) && !led_state.num_lock ) ) {
-        if (led_state.num_lock) {
+
+    if (led_state.num_lock) { 
+        // NUM Lock active, disable overlay layer
+        if ( IS_LAYER_ON(FN) )
             layer_off(FN);
-        } else {
+    } else {
+        // NUM Lock deactivate, enable overlay layer
+        if ( IS_LAYER_OFF(FN) )
             layer_on(FN);
-        }
     }
+    
     return true;
 }
 
