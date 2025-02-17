@@ -107,13 +107,9 @@ void keyboard_post_init_user(void) {
     * Sync initial NUMPAD state from the host
     */
    if (host_keyboard_led_state().num_lock) { 
-    // NUM Lock active, disable overlay layer
-        if ( IS_LAYER_ON(FN) )
-            layer_off(FN);
+        layer_off(FN);
     } else {
-        // NUM Lock deactivate, enable overlay layer
-        if ( IS_LAYER_OFF(FN) )
-            layer_on(FN);
+        layer_on(FN);
     }
 
     rgb_matrix_enable();
