@@ -13,7 +13,7 @@ env:
 
 jobs:
   Build-QMK-Firmware-Macropad:
-    runs-on: ubuntu-latest
+    runs-on: ghcr.io/qmk/qmk_cli 
     steps:
       - name: Checkout own repo
         uses: actions/checkout@v4
