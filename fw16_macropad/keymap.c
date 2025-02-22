@@ -8,6 +8,9 @@
 #include "rgb/rgb.h"
 #include "hexa.h"
 
+
+#define NUMLOCK_INTERVALL 200  // Trigger Intervall for Update Numlock in milliseconds
+
 enum layers {
     NUMPAD = 0,
     FN,
@@ -131,15 +134,25 @@ bool led_update_user(led_t led_state) {
     * Trigger function if State of Macropad does not align with 
     * state of NumLock Key
     */
+    static uint16_t trigger_timer = 0;
+    uint16_t current_time = timer_read();
+
+    /*
+    * Exit early to avoid triggering layer change every tick
+    * If interval not expired just exit otherwise set new future interval
+    */
+    if ( ! timer_expired(current_time, trigger_timer) ) {
+        return true;  
+    } 
+
+    trigger_timer = current_time + NUMLOCK_INTERVALL;
 
     if (led_state.num_lock) { 
         // NUM Lock active, disable overlay layer
-        if ( IS_LAYER_ON(FN) )
-            layer_off(FN);
+        layer_off(FN);
     } else {
         // NUM Lock deactivate, enable overlay layer
-        if ( IS_LAYER_OFF(FN) )
-            layer_on(FN);
+        layer_on(FN);
     }
     
     return true;
