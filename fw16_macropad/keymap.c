@@ -109,15 +109,12 @@ void keyboard_post_init_user(void) {
     /*
     * Sync initial NUMPAD state from the host
     */
-   if (host_keyboard_led_state().num_lock) { 
-        layer_off(FN);
-    } else {
-        layer_on(FN);
-    }
 
-    rgb_matrix_enable();
-    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-    rgb_matrix_sethsv(HSV_WHITE);
+    // rgb_matrix_enable();
+    // rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+    // rgb_matrix_sethsv(HSV_WHITE);
+    
+
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -146,8 +143,9 @@ bool led_update_user(led_t led_state) {
     } 
 
     trigger_timer = current_time + NUMLOCK_INTERVALL;
+    uprintf("%u - %u\n", current_time, host_keyboard_led_state().num_lock);
 
-    if (led_state.num_lock) { 
+    if (host_keyboard_led_state().num_lock) { 
         // NUM Lock active, disable overlay layer
         layer_off(FN);
     } else {
@@ -155,8 +153,20 @@ bool led_update_user(led_t led_state) {
         layer_on(FN);
     }
     
+
     return true;
 }
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+
+    if (host_keyboard_led_state().num_lock) { 
+        layer_off(FN);
+    } else {
+        layer_on(FN);
+    }
+    return state;
+}
+
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
