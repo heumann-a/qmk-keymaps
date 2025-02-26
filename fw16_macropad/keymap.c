@@ -106,14 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
 
-    /*
-    * Sync initial NUMPAD state from the host
-    */
-
-    // rgb_matrix_enable();
-    // rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-    // rgb_matrix_sethsv(HSV_WHITE);
-    
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH);
+    rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
 
 }
 
@@ -131,59 +126,49 @@ bool led_update_user(led_t led_state) {
     * Trigger function if State of Macropad does not align with 
     * state of NumLock Key
     */
-    static uint16_t trigger_timer = 0;
-    uint16_t current_time = timer_read();
-
-    /*
-    * Exit early to avoid triggering layer change every tick
-    * If interval not expired just exit otherwise set new future interval
-    */
-    if ( ! timer_expired(current_time, trigger_timer) ) {
-        return true;  
-    } 
-
-    trigger_timer = current_time + NUMLOCK_INTERVALL;
-    uprintf("%u - %u\n", current_time, host_keyboard_led_state().num_lock);
 
     if (host_keyboard_led_state().num_lock) { 
-        // NUM Lock active, disable overlay layer
-        layer_off(FN);
+        // uprintf("Disable FN\n");
+        // NUM Lock active do nothing and let it overwrite by led effect
     } else {
+        // uprintf("Enable FN\n");
         // NUM Lock deactivate, enable overlay layer
-        layer_on(FN);
+        rgb_matrix_set_color(5, RGB_BLUE);
+        rgb_matrix_set_color(2, RGB_BLUE);
+        rgb_matrix_set_color(22, RGB_BLUE);
+        rgb_matrix_set_color(17 , RGB_BLUE);
     }
-    
 
+    
     return true;
 }
 
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-
-    if (host_keyboard_led_state().num_lock) { 
-        layer_off(FN);
-    } else {
-        layer_on(FN);
-    }
-    return state;
+void suspend_power_down_user(void) {
+    // code will run multiple times while keyboard is suspended
+    rgb_matrix_disable_noeeprom();
 }
 
+void suspend_wakeup_init_user(void) {
+    rgb_matrix_enable_noeeprom();
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH);
+    rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
     switch (get_highest_layer(state)) {
-    case FN:
-        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-        rgb_matrix_sethsv(HSV_TURQUOISE_HALF);
-        break;
+    // Skip this layer because it is no real layer   
+    // case FN:
+    //     break;
     case MEDIA:
-        rgb_matrix_mode(RGB_MATRIX_PIXEL_RAIN);
-        rgb_matrix_sethsv(HSV_TEAL);
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_PIXEL_RAIN);
+        rgb_matrix_sethsv_noeeprom(HSV_TEAL);
         break;
     case NUMPAD:
     default:
         //  for any other layers, or the default layer
-        rgb_matrix_mode(RGB_MATRIX_SPLASH);
-        rgb_matrix_sethsv(HSV_PURPLE);
+        rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH);
+        rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
         break;
     }
 
